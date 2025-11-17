@@ -1,18 +1,49 @@
+"""Views for the lettings application.
+
+This module contains views to display lettings list and individual letting details.
+"""
+import logging
 from django.shortcuts import render
+from django.http import Http404
 from .models import Letting
 
-# Create your views here.
+logger = logging.getLogger(__name__)
+
+
 def lettings_index(request):
+    """Display list of all lettings.
+
+    Args:
+        request: HTTP request object.
+
+    Returns:
+        HttpResponse: Rendered template with list of lettings.
+    """
     lettings_list = Letting.objects.all()
     context = {'lettings_list': lettings_list}
+    logger.info("Lettings index page accessed")
     return render(request, 'lettings/lettings_index.html', context)
 
 
-#Cras ultricies dignissim purus, vitae hendrerit ex varius non. In accumsan porta nisl id eleifend. Praesent dignissim, odio eu consequat pretium, purus urna vulputate arcu, vitae efficitur
-#  lacus justo nec purus. Aenean finibus faucibus lectus at porta. Maecenas auctor, est ut luctus congue, dui enim mattis enim, ac condimentum velit libero in magna. Suspendisse potenti. In tempus a nisi sed laoreet.
-# Suspendisse porta dui eget sem accumsan interdum. Ut quis urna pellentesque justo mattis ullamcorper ac non tellus. In tristique mauris eu velit fermentum, tempus pharetra est luctus. Vivamus consequat aliquam libero, eget bibendum lorem. Sed non dolor risus. Mauris condimentum auctor elementum. Donec quis nisi ligula. Integer vehicula tincidunt enim, ac lacinia augue pulvinar sit amet.
 def letting(request, letting_id):
-    letting = Letting.objects.get(id=letting_id)
+    """Display details of a specific letting.
+
+    Args:
+        request: HTTP request object.
+        letting_id: Primary key of the letting.
+
+    Returns:
+        HttpResponse: Rendered template with letting details.
+
+    Raises:
+        Http404: If letting with given id does not exist.
+    """
+    try:
+        letting = Letting.objects.get(id=letting_id)
+        logger.info(f"Letting {letting_id} accessed successfully")
+    except Letting.DoesNotExist:
+        logger.error(f"Letting with id {letting_id} not found")
+        raise Http404("Letting not found")
     context = {
         'title': letting.title,
         'address': letting.address,

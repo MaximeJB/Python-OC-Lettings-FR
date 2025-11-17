@@ -1,3 +1,7 @@
+"""Admin configuration for the lettings application.
+
+This module registers Letting and Address models in the Django admin interface.
+"""
 from django.contrib import admin
 
 from .models import Letting

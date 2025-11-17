@@ -1,8 +1,21 @@
+#!/usr/bin/env python
+"""Django's command-line utility for administrative tasks.
+
+This script allows you to run Django management commands such as
+runserver, migrate, makemigrations, and more.
+"""
 import os
 import sys
 
 
 def main():
+    """Run administrative tasks.
+
+    Sets the default Django settings module and executes the command line.
+
+    Raises:
+        ImportError: If Django is not installed or not accessible.
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'oc_lettings_site.settings')
     try:
         from django.core.management import execute_from_command_line

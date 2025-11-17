@@ -1,18 +1,48 @@
+"""Views for the profiles application.
+
+This module contains views to display user profiles list and individual profile details.
+"""
+import logging
 from django.shortcuts import render
+from django.http import Http404
 from .models import Profile
 
-# Create your views here.
-# Sed placerat quam in pulvinar commodo. Nullam laoreet consectetur ex, sed consequat libero pulvinar eget. Fusc
-# faucibus, urna quis auctor pharetra, massa dolor cursus neque, quis dictum lacus d
+logger = logging.getLogger(__name__)
+
+
 def profiles_index(request):
+    """Display list of all user profiles.
+
+    Args:
+        request: HTTP request object.
+
+    Returns:
+        HttpResponse: Rendered template with list of profiles.
+    """
     profiles_list = Profile.objects.all()
     context = {'profiles_list': profiles_list}
+    logger.info("Profiles index page accessed")
     return render(request, 'profiles/profiles_index.html', context)
 
-# Aliquam sed metus eget nisi tincidunt ornare accumsan eget lac
-# laoreet neque quis, pellentesque dui. Nullam facilisis pharetra vulputate. Sed tincidunt, dolor id facilisis fringilla, eros leo tristique lacus,
-# it. Nam aliquam dignissim congue. Pellentesque habitant morbi tristique senectus et netus et males
+
 def profile(request, username):
-    profile = Profile.objects.get(user__username=username)
+    """Display details of a specific user profile.
+
+    Args:
+        request: HTTP request object.
+        username: Username of the profile to display.
+
+    Returns:
+        HttpResponse: Rendered template with profile details.
+
+    Raises:
+        Http404: If profile with given username does not exist.
+    """
+    try:
+        profile = Profile.objects.get(user__username=username)
+        logger.info(f"Profile {username} accessed successfully")
+    except Profile.DoesNotExist:
+        logger.error(f"Profile with username {username} not found")
+        raise Http404("Profile not found")
     context = {'profile': profile}
     return render(request, 'profiles/profile.html', context)
