@@ -122,8 +122,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 sentry_sdk.init(
-    dsn="https://cb931420526e8b704882c5ed2ccc09eb@o4510312671674368.ingest.de.sentry.io/4510379495325776",
-    # Add data like request headers and IP for users,
-    # see https://docs.sentry.io/platforms/python/data-management/data-collected/ for more info
+    dsn=os.environ.get('SENTRY_DSN', ''),
     send_default_pii=True,
 )
