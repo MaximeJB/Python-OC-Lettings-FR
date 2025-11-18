@@ -7,3 +7,4 @@ pytest-django==4.7.0
 pytest-cov==4.1.0
 Sphinx==8.2.3
 sphinx-rtd-theme==3.0.2
+whitenoise==6.6.0
