@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="FR" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procédures de déploiement &mdash; Documentation OC Lettings 1.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=ac90e961"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/translations.js?v=e6b791cb"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="Guide d’utilisation" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            OC Lettings
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Sommaire</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Guide de démarrage rapide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technologies.html">Technologies utilisées</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database.html">Structure de la base de données</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">Interfaces de programmation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Guide d’utilisation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Procédures de déploiement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-ci-cd">Architecture CI/CD</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-initiale">Configuration initiale</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#secrets-github">Secrets GitHub</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variables-d-environnement-render">Variables d’environnement Render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-render">Configuration Render</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#processus-de-deploiement">Processus de déploiement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deploiement-automatique">Déploiement automatique</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verification-du-deploiement">Vérification du déploiement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deploiement-manuel">Déploiement manuel</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rollback">Rollback</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#recuperation-de-l-image-docker">Récupération de l’image Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#monitoring-post-deploiement">Monitoring post-déploiement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#erreur-tests-failed-sur-github-actions">Erreur « Tests failed » sur GitHub Actions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#erreur-build-failed-sur-render">Erreur « Build failed » sur Render</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site-inaccessible-apres-deploiement">Site inaccessible après déploiement</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">OC Lettings</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Procédures de déploiement</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/deployment.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="procedures-de-deploiement">
+<h1>Procédures de déploiement<a class="headerlink" href="#procedures-de-deploiement" title="Lien vers cette rubrique"></a></h1>
+<section id="architecture-ci-cd">
+<h2>Architecture CI/CD<a class="headerlink" href="#architecture-ci-cd" title="Lien vers cette rubrique"></a></h2>
+<p>Le déploiement utilise un pipeline automatisé en 4 étapes :</p>
+<ol class="arabic simple">
+<li><p><strong>Tests</strong> : Linting et tests unitaires</p></li>
+<li><p><strong>Build</strong> : Construction de l’image Docker</p></li>
+<li><p><strong>Push</strong> : Envoi sur Docker Hub</p></li>
+<li><p><strong>Deploy</strong> : Déploiement sur Render</p></li>
+</ol>
+</section>
+<section id="configuration-initiale">
+<h2>Configuration initiale<a class="headerlink" href="#configuration-initiale" title="Lien vers cette rubrique"></a></h2>
+<section id="secrets-github">
+<h3>Secrets GitHub<a class="headerlink" href="#secrets-github" title="Lien vers cette rubrique"></a></h3>
+<p>Configurez les secrets dans votre repository GitHub (Settings → Secrets → Actions) :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCKER_USERNAME</span></code> : Nom d’utilisateur Docker Hub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOCKER_PASSWORD</span></code> : Token d’accès Docker Hub (généré sur hub.docker.com)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RENDER_DEPLOY_HOOK_URL</span></code> : URL webhook Render</p></li>
+</ul>
+</section>
+<section id="variables-d-environnement-render">
+<h3>Variables d’environnement Render<a class="headerlink" href="#variables-d-environnement-render" title="Lien vers cette rubrique"></a></h3>
+<p>Sur Render, configurez ces variables :</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code> : Clé secrète Django (générer avec <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;from</span> <span class="pre">django.core.management.utils</span> <span class="pre">import</span> <span class="pre">get_random_secret_key;</span> <span class="pre">print(get_random_secret_key())&quot;</span></code></p></li>
+</ul>
+<p>)
+* <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> : <code class="docutils literal notranslate"><span class="pre">False</span></code>
+* <code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code> : Votre domaine Render (ex: <code class="docutils literal notranslate"><span class="pre">mon-app.onrender.com</span></code>)
+* <code class="docutils literal notranslate"><span class="pre">SENTRY_DSN</span></code> : DSN Sentry pour le monitoring</p>
+</section>
+<section id="configuration-render">
+<h3>Configuration Render<a class="headerlink" href="#configuration-render" title="Lien vers cette rubrique"></a></h3>
+<p>Créez un Web Service sur render.com :</p>
+<ul class="simple">
+<li><p><strong>Build Command</strong> : <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p><strong>Start Command</strong> : <code class="docutils literal notranslate"><span class="pre">gunicorn</span> <span class="pre">oc_lettings_site.wsgi:application</span> <span class="pre">--bind</span> <span class="pre">0.0.0.0:$PORT</span></code></p></li>
+<li><p><strong>Environment Variables</strong> : Ajoutez les variables ci-dessus</p></li>
+</ul>
+</section>
+</section>
+<section id="processus-de-deploiement">
+<h2>Processus de déploiement<a class="headerlink" href="#processus-de-deploiement" title="Lien vers cette rubrique"></a></h2>
+<section id="deploiement-automatique">
+<h3>Déploiement automatique<a class="headerlink" href="#deploiement-automatique" title="Lien vers cette rubrique"></a></h3>
+<ol class="arabic simple">
+<li><p>Faites vos modifications en local</p></li>
+<li><p>Committez sur la branche master :</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Description des changements&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>GitHub Actions se déclenche automatiquement</p></li>
+<li><p>Si les tests passent, l’image Docker est construite et pushée</p></li>
+<li><p>Render déploie automatiquement la nouvelle version</p></li>
+</ol>
+</section>
+<section id="verification-du-deploiement">
+<h3>Vérification du déploiement<a class="headerlink" href="#verification-du-deploiement" title="Lien vers cette rubrique"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>GitHub Actions</strong> : Vérifiez que tous les jobs sont verts</p></li>
+<li><p><strong>Docker Hub</strong> : Vérifiez que la nouvelle image est présente avec le tag du commit</p></li>
+<li><p><strong>Render Dashboard</strong> : Vérifiez les logs de déploiement</p></li>
+<li><p><strong>Site en production</strong> : Visitez l’URL et testez les fonctionnalités</p></li>
+</ol>
+</section>
+<section id="deploiement-manuel">
+<h3>Déploiement manuel<a class="headerlink" href="#deploiement-manuel" title="Lien vers cette rubrique"></a></h3>
+<p>Si besoin de redéployer manuellement :</p>
+<ol class="arabic simple">
+<li><p>Sur Render Dashboard, cliquez sur votre service</p></li>
+<li><p>Cliquez sur « Manual Deploy » → « Deploy latest commit »</p></li>
+</ol>
+</section>
+</section>
+<section id="rollback">
+<h2>Rollback<a class="headerlink" href="#rollback" title="Lien vers cette rubrique"></a></h2>
+<p>En cas de problème en production :</p>
+<ol class="arabic simple">
+<li><p><strong>Via Render</strong> : Utilisez « Rollback » pour revenir à la version précédente</p></li>
+<li><p><strong>Via Git</strong> : Revert le commit problématique et push</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>revert<span class="w"> </span>&lt;commit_hash&gt;
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>master
+</pre></div>
+</div>
+</section>
+<section id="recuperation-de-l-image-docker">
+<h2>Récupération de l’image Docker<a class="headerlink" href="#recuperation-de-l-image-docker" title="Lien vers cette rubrique"></a></h2>
+<p>Pour tester l’image en local :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>votre-username/oc-lettings:latest
+docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;votre-cle&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">DEBUG</span><span class="o">=</span><span class="s2">&quot;False&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">ALLOWED_HOSTS</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>votre-username/oc-lettings:latest
+</pre></div>
+</div>
+</section>
+<section id="monitoring-post-deploiement">
+<h2>Monitoring post-déploiement<a class="headerlink" href="#monitoring-post-deploiement" title="Lien vers cette rubrique"></a></h2>
+<p>Après chaque déploiement, vérifiez :</p>
+<ul class="simple">
+<li><p><strong>Sentry</strong> : Pas de nouvelles erreurs</p></li>
+<li><p><strong>Logs Render</strong> : Pas d’erreurs au démarrage</p></li>
+<li><p><strong>Tests manuels</strong> : Parcourez les principales pages</p></li>
+<li><p><strong>Performance</strong> : Temps de réponse acceptable</p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Lien vers cette rubrique"></a></h2>
+<section id="erreur-tests-failed-sur-github-actions">
+<h3>Erreur « Tests failed » sur GitHub Actions<a class="headerlink" href="#erreur-tests-failed-sur-github-actions" title="Lien vers cette rubrique"></a></h3>
+<ul class="simple">
+<li><p>Vérifiez les logs du job « Test and Lint »</p></li>
+<li><p>Relancez les tests en local : <code class="docutils literal notranslate"><span class="pre">pytest</span></code></p></li>
+<li><p>Corrigez les erreurs et recommittez</p></li>
+</ul>
+</section>
+<section id="erreur-build-failed-sur-render">
+<h3>Erreur « Build failed » sur Render<a class="headerlink" href="#erreur-build-failed-sur-render" title="Lien vers cette rubrique"></a></h3>
+<ul class="simple">
+<li><p>Vérifiez que <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> est à jour</p></li>
+<li><p>Vérifiez les variables d’environnement</p></li>
+<li><p>Consultez les logs de build sur Render</p></li>
+</ul>
+</section>
+<section id="site-inaccessible-apres-deploiement">
+<h3>Site inaccessible après déploiement<a class="headerlink" href="#site-inaccessible-apres-deploiement" title="Lien vers cette rubrique"></a></h3>
+<ul class="simple">
+<li><p>Vérifiez <code class="docutils literal notranslate"><span class="pre">ALLOWED_HOSTS</span></code> dans les variables Render</p></li>
+<li><p>Vérifiez que le service Render est bien « Live »</p></li>
+<li><p>Consultez les logs de l’application</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Guide d’utilisation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Droits d'auteur 2025, Maxime Jean Baptiste.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
