@@ -13,9 +13,9 @@ class TestLettingViews(TestCase):
 
     def test_letting_index(self):
         """Test that lettings index page returns 200 and uses correct template."""
-        response = self.client.get(reverse('lettings_index'))
+        response = self.client.get(reverse('lettings:index'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'lettings/lettings_index.html')
+        self.assertTemplateUsed(response, 'lettings/index.html')
 
     def test_letting_detail(self):
         """Test that letting detail page returns 200 and uses correct template."""
@@ -31,6 +31,6 @@ class TestLettingViews(TestCase):
                 country_iso_code='111'
             )
         )
-        response = self.client.get(reverse('letting', args=[letting.id]))
+        response = self.client.get(reverse('lettings:letting', args=[letting.id]))
         self.assertTemplateUsed(response, 'lettings/letting.html')
         self.assertEqual(response.status_code, 200)

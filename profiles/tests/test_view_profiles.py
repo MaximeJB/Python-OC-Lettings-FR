@@ -16,7 +16,7 @@ class TestProfileViews:
         Args:
             client: Django test client fixture.
         """
-        response = client.get(reverse('profiles_index'))
+        response = client.get(reverse('profiles:index'))
         assert response.status_code == 200
 
     def test_profile_detail(self, client, profile):
@@ -26,5 +26,5 @@ class TestProfileViews:
             client: Django test client fixture.
             profile: Profile fixture from conftest.
         """
-        response = client.get(reverse('profile', args=[profile.user.username]))
+        response = client.get(reverse('profiles:profile', args=[profile.user.username]))
         assert response.status_code == 200
