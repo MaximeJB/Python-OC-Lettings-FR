@@ -73,5 +73,76 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 
 Utilisation de PowerShell, comme ci-dessus sauf :
 
-- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
+- Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1`
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+## Déploiement
+
+### Fonctionnement général
+
+Le déploiement utilise un pipeline CI/CD automatisé :
+
+1. **Push sur master** → GitHub Actions se déclenche
+2. **CI (Intégration Continue)** → Exécute flake8 et pytest avec couverture >90%
+3. **Build Docker** → Construit l'image et la push sur Docker Hub
+4. **CD (Déploiement Continu)** → Déclenche le déploiement sur Render
+
+### Configuration requise
+
+#### Secrets GitHub (Settings → Secrets → Actions)
+
+- `DOCKER_USERNAME` : Nom d'utilisateur Docker Hub
+- `DOCKER_PASSWORD` : Token d'accès Docker Hub
+- `RENDER_DEPLOY_HOOK_URL` : URL du webhook de déploiement Render
+
+#### Variables d'environnement Render
+
+- `SECRET_KEY` : Clé secrète Django 
+- `DEBUG` : `False`
+- `ALLOWED_HOSTS` : Domaine Render (ex: `mon-app.onrender.com`)
+- `SENTRY_DSN` : DSN Sentry pour le monitoring
+
+### Étapes de déploiement
+
+1. **Cloner le repository**
+   ```bash
+   git clone https://github.com/MaximeJB/Python-OC-Lettings-FR.git
+   ```
+
+2. **Configurer les secrets GitHub**
+   - Aller sur GitHub → Settings → Secrets and variables → Actions
+   - Ajouter les 3 secrets requis
+
+3. **Créer le service Render**
+   - Créer un compte sur render.com
+   - New Web Service → Connect to GitHub
+   - Build Command : `pip install -r requirements.txt`
+   - Start Command : `gunicorn oc_lettings_site.wsgi:application --bind 0.0.0.0:$PORT`
+   - Ajouter les variables d'environnement
+
+4. **Récupérer le Deploy Hook**
+   - Render Dashboard → Service → Settings → Deploy Hook
+   - Copier l'URL et l'ajouter dans GitHub Secrets
+
+5. **Déployer**
+   ```bash
+   git add .
+   git commit -m "Deploy"
+   git push origin master
+   ```
+
+6. **Vérifier le déploiement**
+   - GitHub Actions : Vérifier que tous les jobs passent
+   - Render Dashboard : Vérifier les logs de l'application
+   - Visiter l'URL publique
+
+### Récupérer l'image Docker
+
+```bash
+docker pull votre-username/oc-lettings:latest
+docker run -p 8000:8000 votre-username/oc-lettings:latest
+```
+
+### Monitoring
+
+Les erreurs sont automatiquement remontées sur Sentry. Consulter le dashboard Sentry pour voir les logs et erreurs en production.
