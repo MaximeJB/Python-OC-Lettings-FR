@@ -12,7 +12,7 @@ def user():
     """Create a test user.
 
     Returns:
-        User: A Django User instance for testing.
+        A Django User instance for testing.
     """
     return User.objects.create(username='testuser', password='testpass')
 
@@ -25,6 +25,6 @@ def profile(user):
         user: User fixture to associate with the profile.
 
     Returns:
-        Profile: A Profile instance for testing.
+        A Profile instance for testing.
     """
     return Profile.objects.create(user=user, favorite_city='Paris')

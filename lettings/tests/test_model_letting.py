@@ -11,7 +11,15 @@ class AddressModelTest(TestCase):
     """Test cases for the Address model."""
 
     def test_create_address(self):
-        """Test that an address can be created and saved correctly."""
+        """Test that an address can be created and saved correctly.
+
+        Creates an address with all required fields and verifies
+        it is saved to the database with correct attributes.
+
+        Asserts:
+            Address count equals 1.
+            Address city equals 'Paris'.
+        """
         address = Address.objects.create(
             number=2,
             street='Rue de Paris',
@@ -24,7 +32,14 @@ class AddressModelTest(TestCase):
         self.assertEqual(address.city, 'Paris')
 
     def test_address_str(self):
-        """Test that address string representation returns number and street."""
+        """Test that address string representation returns number and street.
+
+        Creates an address and verifies its __str__ method returns
+        the formatted address as 'number street'.
+
+        Asserts:
+            String representation equals '2 Rue de Paris'.
+        """
         address = Address.objects.create(
             number=2,
             street='Rue de Paris',
@@ -40,7 +55,15 @@ class LettingModelTest(TestCase):
     """Test cases for the Letting model."""
 
     def test_create_letting(self):
-        """Test that a letting can be created with an address."""
+        """Test that a letting can be created with an address.
+
+        Creates an address and a letting linked to it, then verifies
+        the letting is saved with correct attributes.
+
+        Asserts:
+            Letting count equals 1.
+            Letting title equals 'Location'.
+        """
         address = Address.objects.create(
             number=1,
             street='Main Street',
@@ -54,7 +77,14 @@ class LettingModelTest(TestCase):
         self.assertEqual(letting.title, 'Location')
 
     def test_letting_str(self):
-        """Test that letting string representation returns title."""
+        """Test that letting string representation returns title.
+
+        Creates a letting and verifies its __str__ method returns
+        the letting's title.
+
+        Asserts:
+            String representation equals 'Beautiful Apartment'.
+        """
         address = Address.objects.create(
             number=1,
             street='Main Street',
