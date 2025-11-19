@@ -5,3 +5,4 @@ claude.md
 .vscode
 .pytest_cache
 .coverage
+.env
