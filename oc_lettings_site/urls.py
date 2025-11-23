@@ -13,7 +13,6 @@ urlpatterns = [
     path('lettings/', include('lettings.urls')),
     path('profiles/', include('profiles.urls')),
     path('admin/', admin.site.urls),
-    path('test-404/', lambda r: r.raise_404),
 ]
 
 handler404 = 'oc_lettings_site.views.custom_404'

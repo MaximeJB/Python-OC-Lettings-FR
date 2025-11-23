@@ -53,17 +53,6 @@ Dans le reste de la documentation sur le développement local, il est supposé q
 - `source venv/bin/activate`
 - `pytest`
 
-#### Base de données
-
-- `cd /path/to/Python-OC-Lettings-FR`
-- Ouvrir une session shell `sqlite3`
-- Se connecter à la base de données `.open oc-lettings-site.sqlite3`
-- Afficher les tables dans la base de données `.tables`
-- Afficher les colonnes dans le tableau des profils, `pragma table_info(Python-OC-Lettings-FR_profile);`
-- Lancer une requête sur la table des profils, `select user_id, favorite_city from
-  Python-OC-Lettings-FR_profile where favorite_city like 'B%';`
-- `.quit` pour quitter
-
 #### Panel d'administration
 
 - Aller sur `http://localhost:8000/admin`
@@ -83,7 +72,7 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 Le déploiement utilise un pipeline CI/CD automatisé :
 
 1. **Push sur master** → GitHub Actions se déclenche
-2. **CI (Intégration Continue)** → Exécute flake8 et pytest avec couverture >90%
+2. **CI (Intégration Continue)** → Exécute flake8 et pytest avec couverture >80%
 3. **Build Docker** → Construit l'image et la push sur Docker Hub
 4. **CD (Déploiement Continu)** → Déclenche le déploiement sur Render
 
